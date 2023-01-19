@@ -33,8 +33,8 @@ class GildedRose
   def update_quality()
 
     @items.each do |item|
-                                              #:NOTE: method check here is not necessary
-      if !PRODUCT.values.include?(item.name) && usable?(item)
+
+      if !PRODUCT.values.include?(item.name)
         decrease_quality(item)
       else
 
@@ -46,6 +46,12 @@ class GildedRose
             if item.sell_in < 6
               item.quality = item.quality + 1
             end
+
+=begin
+we have special functionality for certain products,
+so it kind of feels like there should be a check to a constant the says what operation
+we should do on something; so the the behaviour is held on the class
+=end
 
           end
         end
