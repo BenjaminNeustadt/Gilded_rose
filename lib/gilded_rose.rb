@@ -1,59 +1,79 @@
 class GildedRose
 
-  PRODUCT = {
-    cheese: "Aged Brie" ,
-    ticket: "Backstage passes to a TAFKAL80ETC concert",
-    product_3: "Sulfuras, Hand of Ragnaros"
-  }
+ PRODUCT = {
+   cheese: "Aged Brie" ,
+   ticket: "Backstage passes to a TAFKAL80ETC concert",
+   product_3: "Sulfuras, Hand of Ragnaros"
+ }
+
+  MAX_QUALITY = 50
+
   def initialize(items)
     @items = items
   end
 
+  attr_accessor :items
+
+  def increase_quality(item)
+    item.quality += 1
+  end
+
+   def decrease_quality(item)
+     item.quality -=  1
+   end
+
+  def less_than_limit(item)
+    item < MAX_QUALITY
+  end
+
+  def usable?(item)
+    item.quality > 0
+  end
+
   def update_quality()
+
     @items.each do |item|
-      if item.name != PRODUCT[:cheese] and item.name != PRODUCT[:ticket]
-        if item.quality > 0
-          if item.name != "Sulfuras, Hand of Ragnaros"
-            item.quality = item.quality - 1
-          end
-        end
+                                              #:NOTE: method check here is not necessary
+      if !PRODUCT.values.include?(item.name) && usable?(item)
+        decrease_quality(item)
       else
-        if item.quality < 50
-          item.quality = item.quality + 1
-          if item.name == "Backstage passes to a TAFKAL80ETC concert"
-            if item.sell_in < 11
-              if item.quality < 50
-                item.quality = item.quality + 1
-              end
-            end
+
+        if less_than_limit(item.quality)
+          increase_quality(item)
+
+          if item.name == PRODUCT[:ticket]
+
             if item.sell_in < 6
-              if item.quality < 50
-                item.quality = item.quality + 1
-              end
+              item.quality = item.quality + 1
             end
+
           end
         end
+
       end
-      if item.name != "Sulfuras, Hand of Ragnaros"
+
+      if item.name != PRODUCT[:product_3]
         item.sell_in = item.sell_in - 1
       end
+
       if item.sell_in < 0
-        if item.name != "Aged Brie"
-          if item.name != "Backstage passes to a TAFKAL80ETC concert"
+
+        if item.name != PRODUCT[:cheese]
+
+          if item.name != PRODUCT[:ticket]
+
             if item.quality > 0
-              if item.name != "Sulfuras, Hand of Ragnaros"
+              if item.name != PRODUCT[:product_3]
                 item.quality = item.quality - 1
               end
             end
-          else
-            item.quality = item.quality - item.quality
+
           end
-        else
-          if item.quality < 50
-            item.quality = item.quality + 1
-          end
+
         end
+
       end
+
     end
   end
 end
@@ -71,3 +91,4 @@ class Item
     "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
+
