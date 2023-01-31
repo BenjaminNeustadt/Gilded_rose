@@ -4,6 +4,10 @@ describe GildedRose do
 
   describe "#update_quality" do
 
+    # ----------------- 
+    # Standard products 
+    # ----------------- 
+
     it "does not change the name" do
       items = [Item.new("foo", 0, 0)]
       GildedRose.new(items).update_quality()
@@ -14,13 +18,6 @@ describe GildedRose do
       items = [Item.new("foo", 0, 0), Item.new("baz", 0, 0)]
       GildedRose.new(items).update_quality()
       expect(items[1].name).to eq "baz"
-    end
-
-    it "updates the quality of Brie" do
-      items = [Item.new("Aged Brie", 1, 0)]
-      expect(items[0].quality).to eq 0
-      GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 1
     end
 
     it "decreases the quality of product" do
@@ -36,6 +33,51 @@ describe GildedRose do
       GildedRose.new(items).update_quality()
       expect(items[0].sell_in).to eq 2
     end
+
+    it "the quality of an item is never negative" do
+      items = [Item.new("chocolate", 3, 0)]
+      expect(items[0].sell_in).to eq 3
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 2
+    end
+    # :TODO: BUG fix
+
+    it "decreases the quality twice as fast once sell by date has passed" do
+      items = [Item.new("chocolate", 1, 5)]
+      expect(items[0].sell_in).to eq 1
+      GildedRose.new(items).update_quality()
+      expect(items[0].sell_in).to eq 0
+      expect(items[0].quality).to eq 4
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 2
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 0
+    end
+
+    # ----------------- 
+    # Special items
+    # ----------------- 
+
+    # /*/ BRIE
+    # ----------------- 
+
+    it "Brie increases in quality as sell-by-date approaches" do
+      items = [Item.new("Aged Brie", 1, 0)]
+      expect(items[0].quality).to eq 0
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 1
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 2
+    end
+
+    it "The quality of an item is never more than 50" do
+      items = [Item.new("Aged Brie", 1, 49)]
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 50
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 50
+    end
+
   end
 
 end
