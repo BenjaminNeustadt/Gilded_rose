@@ -16,13 +16,22 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if item.sell_in > 0
-        unless item.quality == 0
-          standard_decrease(item)
-        end
+
+      if item.respond_to? :update_self
+
+        item.update_self
+
       else
-          perished_decrease(item)
+
+        if item.sell_in > 0
+          unless item.quality == 0
+            standard_decrease(item)
+          end
+        else
+            perished_decrease(item)
+        end
       end
+
     end
 
   end
