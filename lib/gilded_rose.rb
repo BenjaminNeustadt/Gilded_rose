@@ -1,18 +1,28 @@
+module UpdateOperator
+
+  QUALITY_INCREMENT = 1
+
+  def standard_decrease(item)
+    item.quality = item.quality - QUALITY_INCREMENT
+    item.sell_in = item.sell_in - 1
+  end
+
+  def perished_decrease(item)
+    item.quality = item.quality - (QUALITY_INCREMENT * 2)
+    item.sell_in = item.sell_in - 1
+  end
+
+end
+
 class GildedRose
+
+include UpdateOperator
 
   def initialize(items)
     @items = items
   end
 
-  def standard_decrease(item)
-    item.quality = item.quality - 1
-    item.sell_in = item.sell_in - 1
-  end
-
-  def perished_decrease(item)
-    item.quality = item.quality - 2
-    item.sell_in = item.sell_in - 1
-  end
+  attr_accessor :items
 
   def standard_update(item)
 
@@ -28,7 +38,7 @@ class GildedRose
 
   def update_quality()
 
-    @items.each do |item|
+    items.each do |item|
 
       if item.respond_to? :update_self
         item.update_self
