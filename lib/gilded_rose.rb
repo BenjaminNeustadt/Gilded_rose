@@ -2,13 +2,8 @@ module UpdateOperator
 
   QUALITY_INCREMENT = 1
 
-  def standard_decrease(item)
-    item.quality -= QUALITY_INCREMENT
-    item.sell_in -= 1
-  end
-
-  def perished_decrease(item)
-    item.quality -= (QUALITY_INCREMENT * 2)
+  def decrease_quality(item, value = QUALITY_INCREMENT)
+    item.quality -= (QUALITY_INCREMENT * value) 
     item.sell_in -= 1
   end
 
@@ -28,10 +23,10 @@ include UpdateOperator
 
     if item.sell_in > 0
       unless item.quality == 0
-        standard_decrease(item)
+        decrease_quality(item)
       end
     else
-        perished_decrease(item)
+        decrease_quality(item, 2)
     end
 
   end
