@@ -70,8 +70,10 @@ class Brie
       self.quality += QUALITY_INCREMENT
       self.sell_in -= 1
     else
-      self.quality += (QUALITY_INCREMENT * 2)
-      self.sell_in -= 1
+      unless self.quality == 50
+        self.quality += (QUALITY_INCREMENT * 2)
+        self.sell_in -= 1
+      end
     end
 
   end
