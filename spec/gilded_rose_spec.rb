@@ -109,9 +109,9 @@ describe GildedRose do
     # /*/ SULFURAS : quality always 80
     # ----------------- 
 
-    xit "Sulfuras never decreases in quality, or sell-in" do
+    it "Sulfuras never decreases in quality, or sell-in" do
 
-      items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 80)]
+      items = [Sulfuras.new("Sulfuras, Hand of Ragnaros", 1, 80)]
       expect(items[0].quality).to eq 80
       expect(items[0].sell_in).to eq 1
       GildedRose.new(items).update_quality()

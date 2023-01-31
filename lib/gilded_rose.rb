@@ -52,11 +52,28 @@ class Item
   end
 end
 
+class Sulfuras
+
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = 80
+  end
+
+  def update_self
+    self.quality
+    self.sell_in
+  end
+
+end
+
 class Brie
 
   QUALITY_INCREMENT = 1
+
   attr_accessor :name, :sell_in, :quality
-  attr_reader :quality_toll
 
   def initialize(name, sell_in, quality)
     @name = name
