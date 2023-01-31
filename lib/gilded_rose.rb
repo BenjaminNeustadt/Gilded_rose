@@ -54,6 +54,7 @@ end
 
 class Brie
 
+  QUALITY_INCREMENT = 1
   attr_accessor :name, :sell_in, :quality
   attr_reader :quality_toll
 
@@ -66,10 +67,10 @@ class Brie
   def update_self
 
     if self.sell_in > 0
-      self.quality += 1
+      self.quality += QUALITY_INCREMENT
       self.sell_in -= 1
     else
-      self.quality += 2
+      self.quality += (QUALITY_INCREMENT * 2)
       self.sell_in -= 1
     end
 
