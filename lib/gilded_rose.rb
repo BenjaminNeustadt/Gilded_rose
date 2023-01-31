@@ -88,6 +88,11 @@ class BackstagePass
       self.quality += QUALITY_INCREMENT
       self.sell_in -= 1
 
+    elsif self.sell_in <= 5 
+
+      self.quality += (QUALITY_INCREMENT * 3)
+      self.sell_in -= 1
+
     elsif (self.sell_in <= 10)
 
       self.quality += (QUALITY_INCREMENT * 2)
