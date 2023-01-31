@@ -69,6 +69,40 @@ class Sulfuras
 
 end
 
+class BackstagePass
+
+  QUALITY_INCREMENT = 1
+
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+  end
+
+  def update_self
+
+    # if self.quality >= 11
+
+      self.quality += QUALITY_INCREMENT
+      self.sell_in -= 1
+
+    # elsif (self.quality < 10 && self.quality > 5)
+
+      # self.quality += (QUALITY_INCREMENT * 2)
+      # self.sell_in -= 1
+
+    # elsif self.quality < 5 && self.quality > 0
+
+    # else
+
+    # end
+
+  end
+
+end
+
 class Brie
 
   QUALITY_INCREMENT = 1

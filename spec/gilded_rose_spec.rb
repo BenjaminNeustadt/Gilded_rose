@@ -122,9 +122,9 @@ describe GildedRose do
     # /*/ BACKSTAGE PASSES:
     # ----------------- 
 
-    xit "Backstage passes increases in quality as SellIn value approaches; above 10" do
+    it "Backstage passes increases in quality as SellIn value approaches; above 10" do
 
-      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 8)]
+      items = [BackstagePass.new("Backstage passes to a TAFKAL80ETC concert", 11, 8)]
       expect(items[0].quality).to eq 8
       expect(items[0].sell_in).to eq 11
       GildedRose.new(items).update_quality()
