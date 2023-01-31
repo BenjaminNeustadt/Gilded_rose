@@ -1,17 +1,24 @@
-module UpdateOperator
+module UpdateOperators
 
   QUALITY_INCREMENT = 1
 
   def decrease_quality(item, value = QUALITY_INCREMENT)
     item.quality -= (QUALITY_INCREMENT * value) 
+  end
+
+  def decrease_sell_in(item = self)
     item.sell_in -= 1
+  end
+
+  def increment_quality(value = QUALITY_INCREMENT)
+    self.quality += (QUALITY_INCREMENT * value)
   end
 
 end
 
 class GildedRose
 
-include UpdateOperator
+include UpdateOperators
 
   def initialize(items)
     @items = items
@@ -24,6 +31,7 @@ include UpdateOperator
     if item.sell_in > 0
       unless item.quality == 0
         decrease_quality(item)
+        decrease_sell_in(item)
       end
     else
         decrease_quality(item, 2)
@@ -82,6 +90,8 @@ end
 
 class BackstagePass
 
+  include UpdateOperators
+
   QUALITY_INCREMENT = 1
 
   attr_accessor :name, :sell_in, :quality
@@ -90,14 +100,6 @@ class BackstagePass
     @name = name
     @sell_in = sell_in
     @quality = quality
-  end
-
-  def decrease_sell_in
-    self.sell_in -= 1
-  end
-
-  def increment_quality(value = QUALITY_INCREMENT)
-    self.quality += (QUALITY_INCREMENT * value)
   end
 
   def update_self
@@ -121,6 +123,8 @@ end
 
 class Brie
 
+  include UpdateOperators
+
   QUALITY_INCREMENT = 1
 
   attr_accessor :name, :sell_in, :quality
@@ -129,14 +133,6 @@ class Brie
     @name = name
     @sell_in = sell_in
     @quality = quality
-  end
-
-  def decrease_sell_in
-    self.sell_in -= 1
-  end
-
-  def increment_quality(value = QUALITY_INCREMENT)
-    self.quality += (QUALITY_INCREMENT * value)
   end
 
   def update_self
