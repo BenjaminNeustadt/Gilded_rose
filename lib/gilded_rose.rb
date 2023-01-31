@@ -66,11 +66,11 @@ class Brie
   def update_self
 
     if self.sell_in > 0
-      self.quality = self.quality + 1
-      self.sell_in = self.sell_in - 1
+      self.quality += 1
+      self.sell_in -= 1
     else
-      self.quality = self.quality + 2
-      self.sell_in = self.sell_in - 1
+      self.quality += 2
+      self.sell_in -= 1
     end
 
   end
