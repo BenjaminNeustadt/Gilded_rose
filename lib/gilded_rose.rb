@@ -136,15 +136,23 @@ class Brie
     @quality = quality
   end
 
+  def decrease_sell_in
+    self.sell_in -= 1
+  end
+
+  def increment_quality(value = QUALITY_INCREMENT)
+    self.quality += (QUALITY_INCREMENT * value)
+  end
+
   def update_self
 
     if self.sell_in > 0
-      self.quality += QUALITY_INCREMENT
-      self.sell_in -= 1
+      increment_quality
+      decrease_sell_in
     else
       unless self.quality == 50
-        self.quality += (QUALITY_INCREMENT * 2)
-        self.sell_in -= 1
+        increment_quality(2)
+        decrease_sell_in
       end
     end
 
