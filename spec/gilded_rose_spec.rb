@@ -62,9 +62,9 @@ describe GildedRose do
     # /*/ BRIE
     # ----------------- 
 
-    xit "Brie increases in quality as sell-by-date approaches" do
+    it "Brie increases in quality as sell-by-date approaches" do
 
-      items = [Item.new("Aged Brie", 8, 1)]
+      items = [Brie.new("Aged Brie", 8, 1)]
 
       expect(items[0].quality).to eq 1
       expect(items[0].sell_in).to eq 8

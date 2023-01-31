@@ -35,6 +35,48 @@ class GildedRose
     end
 
   end
+
+end
+
+class Item
+  attr_accessor :name, :sell_in, :quality
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+  end
+
+  def to_s()
+    "#{@name}, #{@sell_in}, #{@quality}"
+  end
+end
+
+class Brie
+
+  attr_accessor :name, :sell_in, :quality
+  attr_reader :quality_toll
+
+  def initialize(name, sell_in, quality)
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+  end
+
+  def update_self
+
+    if self.sell_in > 0
+      self.quality = self.quality + 1
+      self.sell_in = self.sell_in - 1
+    else
+      self.quality = self.quality + 2
+      self.sell_in = self.sell_in - 1
+    end
+
+  end
+
+end
+
   #     if item.name != PRODUCT[:cheese] and item.name != PRODUCT[:ticket]
 
   #       if item.quality > 0
@@ -81,31 +123,3 @@ class GildedRose
   #     end
   #   end
   # end
-end
-
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
-  end
-end
-
-class Brie
-
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = "Aged Brie"
-    @sell_in = sell_in
-    @quality = quality
-    @quality_toll = 1
-  end
-
-end
