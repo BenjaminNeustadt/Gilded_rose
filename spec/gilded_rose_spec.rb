@@ -172,7 +172,7 @@ end
 
 
 =begin
-NOTES
+NOTES taken during session with 
 it decreases twice as fast once the sell by date has passed: sell_in = 0, quality = 8, => 4
 it never decreases bellow 0
 the quality is never more than 50
