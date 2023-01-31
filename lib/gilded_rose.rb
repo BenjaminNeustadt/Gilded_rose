@@ -1,10 +1,5 @@
 class GildedRose
 
-  PRODUCT = {
-    cheese: "Aged Brie" ,
-    ticket: "Backstage passes to a TAFKAL80ETC concert",
-    product_3: "Sulfuras, Hand of Ragnaros"
-  }
   def initialize(items)
     @items = items
   end
