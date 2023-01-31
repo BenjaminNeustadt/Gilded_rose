@@ -101,27 +101,23 @@ class BackstagePass
     self.sell_in -= 1
   end
 
+  def increment_quality(value = QUALITY_INCREMENT)
+    self.quality += (QUALITY_INCREMENT * value)
+  end
+
   def update_self
 
     if self.sell_in <= 0
-
       self.quality = 0
-
     elsif self.sell_in > 10
-
-      self.quality += QUALITY_INCREMENT
+      increment_quality
       decrease_sell_in
-
     elsif self.sell_in <= 5 
-
-      self.quality += (QUALITY_INCREMENT * 3)
+      increment_quality(3)
       decrease_sell_in
-
     elsif (self.sell_in <= 10)
-
-      self.quality += (QUALITY_INCREMENT * 2)
+      increment_quality(2)
       decrease_sell_in
-
     end
 
   end
