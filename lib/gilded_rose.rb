@@ -92,7 +92,6 @@ class BackstagePass
 
   include UpdateOperators
 
-  QUALITY_INCREMENT = 1
 
   attr_accessor :name, :sell_in, :quality
 
