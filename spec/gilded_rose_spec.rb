@@ -81,9 +81,9 @@ describe GildedRose do
 
     # /*/ This would require verification from the client
 
-    xit "Brie increases twice as fast(2) once sell by-date has passed" do
+    it "Brie increases twice as fast(2) once sell by-date has passed" do
 
-      items = [Item.new("Aged Brie", 1, 2)]
+      items = [Brie.new("Aged Brie", 1, 2)]
 
       expect(items[0].quality).to eq 2
       expect(items[0].sell_in).to eq 1
