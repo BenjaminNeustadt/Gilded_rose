@@ -4,6 +4,7 @@ module UpdateOperators
 
   def decrease_quality(item, value = QUALITY_INCREMENT)
     item.quality -= (QUALITY_INCREMENT * value) 
+    item.quality = [item.quality, 0].max
   end
 
   def decrease_sell_in(item = self)
@@ -26,15 +27,21 @@ include UpdateOperators
 
   attr_accessor :items
 
-  def standard_update(item)
+  def standard_update(item, value = 1)
 
     if item.sell_in > 0
+
       unless item.quality == 0
-        decrease_quality(item)
+        decrease_quality(item, value)
         decrease_sell_in(item)
       end
+
     else
+
+      unless item.quality == 0
         decrease_quality(item, 2)
+      end
+
     end
 
   end
@@ -43,7 +50,10 @@ include UpdateOperators
 
     items.each do |item|
 
-      if item.respond_to? :update_self
+      if item.respond_to? :decrease_speed
+        standard_update(item, 2)
+
+      elsif item.respond_to? :update_self
         item.update_self
       else
         standard_update(item)
@@ -69,6 +79,19 @@ class Item
   def to_s()
     "#{@name}, #{@sell_in}, #{@quality}"
   end
+end
+
+class ConjuredItem < Item
+  attr_accessor :name, :sell_in, :quality
+  attr_reader :decrease_speed
+  
+  def initialize(name, sell_in, quality) 
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+    @decrease_speed = 2
+  end
+
 end
 
 class Sulfuras
