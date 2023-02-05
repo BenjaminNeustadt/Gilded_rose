@@ -27,12 +27,13 @@ module UpdateOperators
     self.quality == 50
   end
 
-  def default_update(item, value = 1)
+  def default_update(item, quality_increase = 1)
+    return if expired?(item)
     if still_sellable(item)
-      decrease_quality(item, value);
-      decrease_sell_in(item) unless expired?(item)
+      decrease_quality(item, quality_increase);
+      decrease_sell_in(item)
     else
-      decrease_quality(item, 2) unless expired?(item)
+      decrease_quality(item, 2)
     end
   end
 
