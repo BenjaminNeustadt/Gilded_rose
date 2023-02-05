@@ -23,9 +23,12 @@ module UpdateOperators
     item.sell_in > 0
   end
 
+  def max_quality
+    self.quality == 50
+  end
+
   def default_update(item, value = 1)
     if still_sellable(item)
-      value = item.decrement_pace if item.respond_to? :decrement_pace
       decrease_quality(item, value);
       decrease_sell_in(item) unless expired?(item)
     else
@@ -54,6 +57,25 @@ include UpdateOperators
 end
 
 # /*/ SPECIAL CLASSES FOR SPECIAL ITEMS
+class ConjuredItem
+  include UpdateOperators
+
+  attr_accessor :name, :sell_in, :quality
+  attr_reader :decrement_pace
+  
+  def initialize(name, sell_in, quality) 
+    @name = name
+    @sell_in = sell_in
+    @quality = quality
+    @decrement_pace = 2
+  end
+
+  def update_self
+    decrease_quality(self, decrement_pace)
+    decrease_sell_in(self)
+  end
+
+end
 
 class Item
   attr_accessor :name, :sell_in, :quality
@@ -69,18 +91,6 @@ class Item
   end
 end
 
-class ConjuredItem < Item
-  attr_accessor :name, :sell_in, :quality
-  attr_reader :decrement_pace
-  
-  def initialize(name, sell_in, quality) 
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-    @decrement_pace = 2
-  end
-
-end
 
 class Sulfuras
 
@@ -151,10 +161,7 @@ class Brie
       increment_quality
       decrease_sell_in
     else
-      unless self.quality == 50
-        increment_quality(2)
-        decrease_sell_in
-      end
+      increment_quality(2) and decrease_sell_in unless max_quality
     end
 
   end
