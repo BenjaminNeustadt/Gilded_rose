@@ -15,6 +15,24 @@ module UpdateOperators
     self.quality += (QUALITY_INCREMENT * value)
   end
 
+  def expired?(item)
+    item.quality == 0
+  end
+
+  def still_sellable(item)
+    item.sell_in > 0
+  end
+
+  def default_update(item, value = 1)
+    if still_sellable(item)
+      value = item.decrement_pace if item.respond_to? :decrement_pace
+      decrease_quality(item, value);
+      decrease_sell_in(item) unless expired?(item)
+    else
+      decrease_quality(item, 2) unless expired?(item)
+    end
+  end
+
 end
 
 class GildedRose
@@ -26,33 +44,6 @@ include UpdateOperators
   end
 
   attr_accessor :items
-
-  def expired?(item)
-    item.quality == 0
-  end
-
-  def still_sellable(item)
-    item.sell_in > 0
-  end
-
-  def default_update(item, value = 1)
-
-    if item.respond_to? :decrement_pace
-      decrease_quality(item, 2);
-      decrease_sell_in(item) unless expired?(item)
-
-    elsif still_sellable(item)
-
-      decrease_quality(item, value);
-      decrease_sell_in(item) unless expired?(item)
-
-    else
-
-      decrease_quality(item, 2) unless expired?(item)
-
-    end
-
-  end
 
   def update_quality
     items.each do |item|
@@ -156,7 +147,7 @@ class Brie
 
   def update_self
 
-    if self.sell_in > 0
+    if still_sellable(self)
       increment_quality
       decrease_sell_in
     else
