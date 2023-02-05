@@ -27,16 +27,20 @@ include UpdateOperators
 
   attr_accessor :items
 
+  def expired?(item)
+    item.quality == 0
+  end
+
   def standard_update(item, value = 1)
 
     if item.sell_in > 0
 
         decrease_quality(item, value);
-        decrease_sell_in(item) unless item.quality == 0
+        decrease_sell_in(item) unless expired?(item)
 
     else
 
-      decrease_quality(item, 2) unless item.quality == 0
+      decrease_quality(item, 2) unless expired?(item)
 
     end
 
