@@ -2,8 +2,8 @@ module UpdateOperators
 
   QUALITY_INCREMENT = 1
 
-  def decrease_quality(item, value = QUALITY_INCREMENT)
-    item.quality -= (QUALITY_INCREMENT * value) 
+  def decrease_quality(item, quality_increase = QUALITY_INCREMENT)
+    item.quality -= (QUALITY_INCREMENT * quality_increase) 
     item.quality = [item.quality, 0].max
   end
 
@@ -11,8 +11,8 @@ module UpdateOperators
     item.sell_in -= 1
   end
 
-  def increment_quality(value = QUALITY_INCREMENT)
-    self.quality += (QUALITY_INCREMENT * value)
+  def increment_quality(quality_increase = QUALITY_INCREMENT)
+    self.quality += (QUALITY_INCREMENT * quality_increase)
   end
 
   def expired?(item)
