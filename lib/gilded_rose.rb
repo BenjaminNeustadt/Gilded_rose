@@ -31,12 +31,20 @@ include UpdateOperators
     item.quality == 0
   end
 
-  def standard_update(item, value = 1)
+  def still_sellable(item)
+    item.sell_in > 0
+  end
 
-    if item.sell_in > 0
+  def default_update(item, value = 1)
 
-        decrease_quality(item, value);
-        decrease_sell_in(item) unless expired?(item)
+    if item.respond_to? :decrement_pace
+      decrease_quality(item, 2);
+      decrease_sell_in(item) unless expired?(item)
+
+    elsif still_sellable(item)
+
+      decrease_quality(item, value);
+      decrease_sell_in(item) unless expired?(item)
 
     else
 
@@ -46,21 +54,10 @@ include UpdateOperators
 
   end
 
-  def update_quality()
-
+  def update_quality
     items.each do |item|
-
-      if item.respond_to? :decrease_speed
-        standard_update(item, 2)
-
-      elsif item.respond_to? :update_self
-        item.update_self
-      else
-        standard_update(item)
-      end
-
+      item.respond_to?(:update_self) ? item.update_self : default_update(item)
     end
-
   end
 
 end
@@ -83,13 +80,13 @@ end
 
 class ConjuredItem < Item
   attr_accessor :name, :sell_in, :quality
-  attr_reader :decrease_speed
+  attr_reader :decrement_pace
   
   def initialize(name, sell_in, quality) 
     @name = name
     @sell_in = sell_in
     @quality = quality
-    @decrease_speed = 2
+    @decrement_pace = 2
   end
 
 end
