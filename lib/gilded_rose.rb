@@ -31,16 +31,12 @@ include UpdateOperators
 
     if item.sell_in > 0
 
-      unless item.quality == 0
-        decrease_quality(item, value)
-        decrease_sell_in(item)
-      end
+        decrease_quality(item, value);
+        decrease_sell_in(item) unless item.quality == 0
 
     else
 
-      unless item.quality == 0
-        decrease_quality(item, 2)
-      end
+      decrease_quality(item, 2) unless item.quality == 0
 
     end
 
