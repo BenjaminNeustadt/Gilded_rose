@@ -87,8 +87,6 @@ class ConjuredItem < Item
 
 end
 
-
-
 class Sulfuras < Item
 
   def quality

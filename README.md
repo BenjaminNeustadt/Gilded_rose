@@ -52,4 +52,6 @@ legendary item and as such its Quality is 80 and it never alters.
 
 ## Notes
 
-I have kept all of the classes and module inside a same file for now, but ideally they would eventually be extracted into separate files.
+- I have kept all of the classes and module inside a same file for now, but ideally they would eventually be extracted into separate files.
+
+- The order of the module and classes in the file remains important for now, since Ruby is a top down language. Moving them around will result in failing tests.
