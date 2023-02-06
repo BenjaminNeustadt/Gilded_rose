@@ -93,13 +93,9 @@ class Item
 end
 
 
-class Sulfuras
+class Sulfuras < Item
 
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
+  def quality
     @quality = 80
   end
 

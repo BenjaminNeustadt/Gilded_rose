@@ -119,6 +119,15 @@ describe GildedRose do
       expect(items[0].quality).to eq 80
     end
 
+
+    it "Sulfuras always has a quality of 80" do
+
+      items = [Sulfuras.new("Sulfuras, Hand of Ragnaros", 1, 50)]
+      expect(items[0].quality).to eq 80
+      GildedRose.new(items).update_quality()
+      expect(items[0].quality).to eq 80
+    end
+
     # /*/ BACKSTAGE PASSES:
     # ----------------- 
 
