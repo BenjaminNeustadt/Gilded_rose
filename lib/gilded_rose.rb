@@ -1,9 +1,9 @@
 module UpdateOperators
 
-  QUALITY_INCREMENT = 1
+  DEFAULT_INCREMENT = 1
 
-  def decrease_quality(item, quality_increase = QUALITY_INCREMENT)
-    item.quality -= (QUALITY_INCREMENT * quality_increase) 
+  def decrease_quality(item, quality_increase = DEFAULT_INCREMENT)
+    item.quality -= (DEFAULT_INCREMENT * quality_increase) 
     item.quality = [item.quality, 0].max
   end
 
@@ -11,8 +11,8 @@ module UpdateOperators
     item.sell_in -= 1
   end
 
-  def increment_quality(quality_increase = QUALITY_INCREMENT)
-    self.quality += (QUALITY_INCREMENT * quality_increase)
+  def increment_quality(quality_increase = DEFAULT_INCREMENT)
+    self.quality += (DEFAULT_INCREMENT * quality_increase)
   end
 
   def expired?(item)
@@ -145,8 +145,6 @@ end
 class Brie
 
   include UpdateOperators
-
-  QUALITY_INCREMENT = 1
 
   attr_accessor :name, :sell_in, :quality
 
