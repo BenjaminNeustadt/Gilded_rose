@@ -3,6 +3,7 @@
 [Trello board](https://trello.com/invite/b/Dutrjzwh/afbd90c0375ea2303083a3a01bf4e845/gilded-rose-pairing-session)
 
 -------------
+## Instructions
 
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a prime location in a
 prominent city ran by a friendly innkeeper named Allison. We also buy and sell only the finest goods.
@@ -48,3 +49,7 @@ for you).
 
 Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a
 legendary item and as such its Quality is 80 and it never alters.
+
+## Notes
+
+I have kept all of the classes and module inside a same file for now, but ideally they would eventually be extracted into separate files.
