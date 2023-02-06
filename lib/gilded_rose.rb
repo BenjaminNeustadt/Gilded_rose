@@ -110,18 +110,9 @@ class Sulfuras
 
 end
 
-class BackstagePass
+class BackstagePass < Item
 
   include UpdateOperators
-
-
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
 
   def update_self
 
@@ -142,17 +133,9 @@ class BackstagePass
 
 end
 
-class Brie
+class Brie < Item
 
   include UpdateOperators
-
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
 
   def update_self
 
