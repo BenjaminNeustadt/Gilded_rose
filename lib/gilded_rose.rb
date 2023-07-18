@@ -42,16 +42,11 @@ include UpdateOperators
   def update_quality
     @items.each do |item|
       special_item = ITEM_CLASSES[item.name]&.new(item.name, item.sell_in, item.quality)
-      # p item.to_s
       if special_item
-        # p special_item
-        # p special_item.class
-        p special_item.quality
         special_item.update_self
-        p special_item.quality
+        item.quality = special_item.quality
+        item.sell_in = special_item.sell_in
       else
-        # p "the item is this: #{item.class}"
-
         default_update(item)
       end
     end
