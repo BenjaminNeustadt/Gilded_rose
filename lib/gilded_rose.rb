@@ -29,7 +29,8 @@ include UpdateOperators
   ITEM_CLASSES = {
     "Aged Brie" => Brie,
     "Sulfuras, Hand of Ragnaros" => Sulfuras,
-    "Backstage passes to a TAFKAL80ETC concert" => BackstagePass
+    "Backstage passes to a TAFKAL80ETC concert" => BackstagePass,
+    "Conjured Item" => ConjuredItem,
   }
 
   def initialize(items)
@@ -43,6 +44,8 @@ include UpdateOperators
     @items.each do |item|
       special_item = ITEM_CLASSES[item.name]&.new(item.name, item.sell_in, item.quality)
       if special_item
+        # p "The sulfuras quality is always::: #{special_item.quality}"
+        # p special_item.quality
         special_item.update_self
         item.quality = special_item.quality
         item.sell_in = special_item.sell_in

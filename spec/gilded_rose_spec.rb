@@ -79,9 +79,9 @@ describe GildedRose do
 
     end
 
-    xit "Brie increases twice as fast(2) once sell by-date has passed" do
+    it "Brie increases twice as fast(2) once sell by-date has passed" do
 
-      items = [Brie.new("Aged Brie", 1, 2)]
+      items = [Item.new("Aged Brie", 1, 2)]
 
       expect(items[0].quality).to eq 2
       expect(items[0].sell_in).to eq 1
@@ -96,8 +96,8 @@ describe GildedRose do
 
     end
 
-    xit "The quality of an item is never more than 50" do
-      items = [Brie.new("Aged Brie", 1, 49)]
+    it "The quality of an item is never more than 50" do
+      items = [Item.new("Aged Brie", 1, 49)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 50
       GildedRose.new(items).update_quality()
@@ -107,9 +107,9 @@ describe GildedRose do
     # /*/ SULFURAS : quality always 80
     # ----------------- 
 
-    xit "Sulfuras never decreases in quality, or sell-in" do
+    it "Sulfuras never decreases in quality, or sell-in" do
 
-      items = [Sulfuras.new("Sulfuras, Hand of Ragnaros", 1, 80)]
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 80)]
       expect(items[0].quality).to eq 80
       expect(items[0].sell_in).to eq 1
       GildedRose.new(items).update_quality()
@@ -118,10 +118,10 @@ describe GildedRose do
     end
 
 
-    xit "Sulfuras always has a quality of 80" do
+    it "Sulfuras always has a quality of 80" do
 
-      items = [Sulfuras.new("Sulfuras, Hand of Ragnaros", 1, 50)]
-      expect(items[0].quality).to eq 80
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 1, 50)]
+      expect(items[0].quality).to eq 50
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 80
     end
@@ -130,9 +130,9 @@ describe GildedRose do
     # ----------------- 
 
 
-    xit "Backstage passes increases in quality as SellIn value approaches; above 10" do
+    it "Backstage passes increases in quality as SellIn value approaches; above 10" do
 
-      items = [BackstagePass.new("Backstage passes to a TAFKAL80ETC concert", 11, 8)]
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 11, 8)]
       expect(items[0].quality).to eq 8
       expect(items[0].sell_in).to eq 11
       GildedRose.new(items).update_quality()
@@ -140,9 +140,9 @@ describe GildedRose do
       expect(items[0].quality).to eq 9
     end
 
-    xit "Backstage passes increases in quality(by 2) as SellIn value approaches; less than or equal to 10" do
+    it "Backstage passes increases in quality(by 2) as SellIn value approaches; less than or equal to 10" do
 
-      items = [BackstagePass.new("Backstage passes to a TAFKAL80ETC concert", 10, 8)]
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 8)]
       expect(items[0].quality).to eq 8
       expect(items[0].sell_in).to eq 10
       GildedRose.new(items).update_quality()
@@ -150,9 +150,9 @@ describe GildedRose do
       expect(items[0].quality).to eq 10
     end
 
-    xit "Backstage passes increases in quality(by 3) as SellIn value approaches; less than or equal to 5" do
+    it "Backstage passes increases in quality(by 3) as SellIn value approaches; less than or equal to 5" do
 
-      items = [BackstagePass.new("Backstage passes to a TAFKAL80ETC concert", 5, 8)]
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 8)]
       expect(items[0].quality).to eq 8
       expect(items[0].sell_in).to eq 5
       GildedRose.new(items).update_quality()
@@ -161,9 +161,9 @@ describe GildedRose do
 
     end
 
-    xit "Backstage passes drops to 0 quality after the concert" do
+    it "Backstage passes drops to 0 quality after the concert" do
 
-      items = [BackstagePass.new("Backstage passes to a TAFKAL80ETC concert", 1, 7)]
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 1, 7)]
       expect(items[0].quality).to eq 7
       expect(items[0].sell_in).to eq 1
       GildedRose.new(items).update_quality()
@@ -176,9 +176,9 @@ describe GildedRose do
     # /*/ CONJURED ITEMS:
     # ----------------- 
 
-    xit "Backstage passes drops to 0 quality after the concert" do
+    it "Conjured item degrades in quality twice as fast, therefoe at a pace of 2" do
 
-      items = [ConjuredItem.new("Special Item", 10, 20)]
+      items = [Item.new("Conjured Item", 10, 20)]
       expect(items[0].quality).to eq 20
       expect(items[0].sell_in).to eq 10
       GildedRose.new(items).update_quality()
@@ -186,34 +186,34 @@ describe GildedRose do
 
     end
 
-    xit "does not change the name" do
-      items = [ConjuredItem.new("foo", 0, 0)]
+    it "does not change the name" do
+      items = [Item.new("Conjured Item", 0, 0)]
       GildedRose.new(items).update_quality()
-      expect(items[0].name).to eq "foo"
+      expect(items[0].name).to eq "Conjured Item"
     end
 
-    xit "does not change the name for multiple items" do
-      items = [ConjuredItem.new("foo", 0, 0), ConjuredItem.new("baz", 0, 0)]
+    it "does not change the name for multiple items" do
+      items = [Item.new("foo", 0, 0), Item.new("baz", 0, 0)]
       GildedRose.new(items).update_quality()
       expect(items[1].name).to eq "baz"
     end
 
-    xit "decreases the quality of product" do
-      items = [ConjuredItem.new("milk", 1, 4)]
+    it "decreases the quality of product" do
+      items = [Item.new("Conjured Item", 1, 4)]
       expect(items[0].quality).to eq 4
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 2
     end
 
-    xit "the sell in date in decreased at the end of the day" do
-      items = [ConjuredItem.new("chocolate", 3, 3)]
+    it "the sell in date in decreased at the end of the day" do
+      items = [Item.new("Conjured Item", 3, 3)]
       expect(items[0].sell_in).to eq 3
       GildedRose.new(items).update_quality()
       expect(items[0].sell_in).to eq 2
     end
 
-    xit "the quality of an item is never negative" do
-      items = [ConjuredItem.new("chocolate", 3, 0)]
+    it "the quality of an item is never negative" do
+      items = [Item.new("Conjured Item", 3, 0)]
       expect(items[0].sell_in).to eq 3
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 0
@@ -221,8 +221,8 @@ describe GildedRose do
       expect(items[0].quality).to eq 0
     end
 
-    xit "decreases the quality twice as fast once sell by date has passed" do
-      items = [ConjuredItem.new("chocolate", 1, 5)]
+    it "decreases the quality twice as fast once sell by date has passed" do
+      items = [Item.new("Conjured Item", 1, 5)]
       expect(items[0].sell_in).to eq 1
       GildedRose.new(items).update_quality()
       expect(items[0].sell_in).to eq 0
